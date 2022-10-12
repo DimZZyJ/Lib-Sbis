@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using System;
 
 namespace SBISLib.HTTP_request_classes
 {
@@ -29,8 +30,13 @@ namespace SBISLib.HTTP_request_classes
             string Json = Request(jsonRequets, link);
             var jo = JObject.Parse(Json);
             sessionid = jo["result"].ToString();
-            
+        }
 
+        public void Disconnect()
+        {
+            string jsonRequest= "{\r\n  \"jsonrpc\": \"2.0\",\r\n  \"method\": \"СБИС.Выход\",\r\n  \"params\": {},\r\n  \"id\": 0\r\n}";
+            string link = "https://online.sbis.ru/auth/service/";
+            Request(jsonRequest, link,sessionid);
         }
     }
 }

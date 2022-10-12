@@ -13,6 +13,7 @@ namespace Lib_Sbis
     public interface ISBIS
     {
         void Connect(string login, string password);
+        void Disconnect();
         ArrayList GetDocuments();
         ArrayList GetDocumentsFilter(string type, string dateFrom = null, string dateTo = null);
     }

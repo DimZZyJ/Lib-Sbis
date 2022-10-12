@@ -11,12 +11,21 @@ namespace Lib_Sbis
     public class SBIS : ISBIS
     {
         private string sessionid = null;
+        private HttpConnection connection=null;
 
         public void Connect(string login, string password)
         {
-            HttpConnection connection = new HttpConnection(login, password);
+            connection = new HttpConnection(login, password);
             connection.Connect();
             sessionid = connection.GetSessionId();
+        }
+
+        public void Disconnect()
+        {
+            if (sessionid != null)
+            {
+                connection.Disconnect();
+            }
         }
 
         public ArrayList GetDocuments()
