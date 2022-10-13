@@ -18,9 +18,15 @@
 
         public class Навигация
         {
+            
+
             public string ЕстьЕще { get; set; }
-            public string РазмерСтраницы { get; set; }
-            public string Страница { get; set; }
+            public string РазмерСтраницы { get; set; } = "200";
+            public string Страница { get; set; } = "0";
+            public Навигация(string страница)
+            {
+                Страница = страница;
+            }
         }
 
         public class Документ

@@ -4,8 +4,6 @@ namespace SBISLib.DocumentClasses
 {
     public class DocFilter
     {
-
-
         public string ДатаС { get; set; }
         public string ДатаПо { get; set; }
         public string Тип { get; set; }
@@ -17,9 +15,6 @@ namespace SBISLib.DocumentClasses
         public Подразделение Подразделение { get; set; }
         public Ответственный Ответственный { get; set; }
         public Навигация Навигация { get; set; }
-        public DocFilter(string тип)
-        {
-            Тип = тип;
-        }
+        
     }
 }

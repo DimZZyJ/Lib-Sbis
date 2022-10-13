@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SBISLib.DocumentClasses;
 using SBISLib.HTTP_request_classes;
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
+using static SBISLib.DocumentClasses.DocObject;
 
 namespace Lib_Sbis
 {
@@ -19,7 +21,7 @@ namespace Lib_Sbis
             connection.Connect();
             sessionid = connection.GetSessionId();
         }
-
+        
         public void Disconnect()
         {
             if (sessionid != null)
@@ -36,12 +38,9 @@ namespace Lib_Sbis
             if (sessionid != null)
             {
                 docJson = documentRequest.GetDocument(sessionid);
-                DocObject.Rootobject rootobject = JsonConvert.DeserializeObject<DocObject.Rootobject>(docJson);
-                DocObject.Документ[] документ = rootobject.result.Документ;
-                for (int i = 0; i < документ.Length; i++)
-                {
-                    docslist.Add(документ[i]);
-                }
+                Rootobject rootobject = JsonConvert.DeserializeObject<Rootobject>(docJson);
+                Документ[] документ = rootobject.result.Документ;
+                docslist = FillDocList(docslist, документ);
                 return docslist;
             }
             else
@@ -50,27 +49,34 @@ namespace Lib_Sbis
                 return null;
             }
         }
-
+        //TODO: Напиши работу с навигацией 
         public ArrayList GetDocumentsFilter(string type, string dateFrom = null, string dateTo = null)
         {
             ArrayList docslist = new ArrayList();
             string docJson;
             DocumentRequest documentRequest = new DocumentRequest();
-            DocFilter docfilter = new DocFilter(type);
+            
+            DocFilter docfilter = new DocFilter();
+            docfilter.Тип = type;
             if (dateFrom != null)
                 docfilter.ДатаС = dateFrom;
             if (dateTo != null)
                 docfilter.ДатаПо = dateTo;
             documentRequest.DocFilter = docfilter;
+            
             docJson = documentRequest.GetDocument(sessionid);
-            DocObject.Rootobject rootobject = JsonConvert.DeserializeObject<DocObject.Rootobject>(docJson);
-            DocObject.Документ[] документ = rootobject.result.Документ;
+            Rootobject rootobject = JsonConvert.DeserializeObject<Rootobject>(docJson);
+            Документ[] документ = rootobject.result.Документ;
+            docslist = FillDocList(docslist, документ);
+            return docslist;
+        }
+        ArrayList FillDocList(ArrayList docslist,Документ[] документ)
+        {
             for (int i = 0; i < документ.Length; i++)
             {
                 docslist.Add(документ[i]);
             }
             return docslist;
-            
         }
     }
 }
