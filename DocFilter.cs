@@ -4,6 +4,13 @@ namespace SBISLib.DocumentClasses
 {
     public class DocFilter
     {
+        public DocFilter(string тип,Навигация навигация )
+        {
+            Тип = тип;
+            Навигация = навигация;
+
+        }
+        
         public string ДатаС { get; set; }
         public string ДатаПо { get; set; }
         public string Тип { get; set; }

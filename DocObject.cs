@@ -21,11 +21,12 @@
             
 
             public string ЕстьЕще { get; set; }
-            public string РазмерСтраницы { get; set; } = "200";
-            public string Страница { get; set; } = "0";
+            public string РазмерСтраницы { get; set; } 
+            public string Страница { get; set; }
             public Навигация(string страница)
             {
                 Страница = страница;
+                РазмерСтраницы = "200";
             }
         }
 

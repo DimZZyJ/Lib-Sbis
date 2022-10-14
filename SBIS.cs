@@ -4,6 +4,7 @@ using SBISLib.DocumentClasses;
 using SBISLib.HTTP_request_classes;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using static SBISLib.DocumentClasses.DocObject;
 
@@ -33,14 +34,13 @@ namespace Lib_Sbis
         public ArrayList GetDocuments()
         {
             ArrayList docslist = new ArrayList();
-            string docJson;
             DocumentRequest documentRequest = new DocumentRequest();
+            DocFilter docfilter = new DocFilter("ДоговорДок", new Навигация("0"));
+            documentRequest.DocFilter = docfilter;
             if (sessionid != null)
             {
-                docJson = documentRequest.GetDocument(sessionid);
-                Rootobject rootobject = JsonConvert.DeserializeObject<Rootobject>(docJson);
-                Документ[] документ = rootobject.result.Документ;
-                docslist = FillDocList(docslist, документ);
+                
+                docslist = RequestAndSerialize(documentRequest);
                 return docslist;
             }
             else
@@ -48,26 +48,23 @@ namespace Lib_Sbis
                 Console.WriteLine("no session id");
                 return null;
             }
+
+
         }
-        //TODO: Напиши работу с навигацией 
         public ArrayList GetDocumentsFilter(string type, string dateFrom = null, string dateTo = null)
         {
-            ArrayList docslist = new ArrayList();
-            string docJson;
+            //TODO: Реализуй ограничение по выдаче документов
             DocumentRequest documentRequest = new DocumentRequest();
             
-            DocFilter docfilter = new DocFilter();
-            docfilter.Тип = type;
+            DocFilter docfilter = new DocFilter(type,new Навигация("0"));
             if (dateFrom != null)
                 docfilter.ДатаС = dateFrom;
             if (dateTo != null)
                 docfilter.ДатаПо = dateTo;
             documentRequest.DocFilter = docfilter;
-            
-            docJson = documentRequest.GetDocument(sessionid);
-            Rootobject rootobject = JsonConvert.DeserializeObject<Rootobject>(docJson);
-            Документ[] документ = rootobject.result.Документ;
-            docslist = FillDocList(docslist, документ);
+
+
+            ArrayList docslist = RequestAndSerialize(documentRequest);
             return docslist;
         }
         ArrayList FillDocList(ArrayList docslist,Документ[] документ)
@@ -75,6 +72,28 @@ namespace Lib_Sbis
             for (int i = 0; i < документ.Length; i++)
             {
                 docslist.Add(документ[i]);
+            }
+            return docslist;
+        }
+        ArrayList RequestAndSerialize(DocumentRequest documentRequest)
+        {
+            ArrayList docslist = new ArrayList();
+            string docJson = documentRequest.GetDocument(sessionid);
+            Rootobject rootobject = JsonConvert.DeserializeObject<Rootobject>(docJson);
+            string more = rootobject.result.Навигация.ЕстьЕще;
+            int page = int.Parse(rootobject.result.Навигация.Страница);
+            Документ[] документы = rootobject.result.Документ;
+            docslist = FillDocList(docslist, документы);
+            while (more == "Да")
+            {
+                page++;
+                documentRequest.DocFilter.Навигация.Страница=page.ToString();
+                docJson = documentRequest.GetDocument(sessionid);
+                rootobject = JsonConvert.DeserializeObject<Rootobject>(docJson);
+                документы = rootobject.result.Документ;
+                more = rootobject.result.Навигация.ЕстьЕще;
+                docslist = FillDocList(docslist, документы);
+                
             }
             return docslist;
         }
