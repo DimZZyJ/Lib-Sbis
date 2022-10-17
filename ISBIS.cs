@@ -1,4 +1,5 @@
-﻿using SBISLib.DocumentClasses;
+﻿using Lib_Sbis.SimpleObjects;
+using SBISLib.DocumentClasses;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace Lib_Sbis
         void Disconnect();
         ArrayList GetDocuments();
         ArrayList GetDocumentsTypeFilter(string type, string inn,string dateFrom , string dateTo);
+        ArrayList GetDocumentsByFilterObject(SimpleDocFilter simpleDocFilter);
+        SimpleDocFilter GetFilterObject();
     }
 }
