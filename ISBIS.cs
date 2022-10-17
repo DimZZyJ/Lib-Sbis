@@ -15,6 +15,6 @@ namespace Lib_Sbis
         void Connect(string login, string password);
         void Disconnect();
         ArrayList GetDocuments();
-        ArrayList GetDocumentsFilter(string type, string dateFrom = null, string dateTo = null);
+        ArrayList GetDocumentsTypeFilter(string type, string inn,string dateFrom , string dateTo);
     }
 }

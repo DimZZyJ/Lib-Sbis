@@ -51,7 +51,8 @@ namespace Lib_Sbis
 
 
         }
-        public ArrayList GetDocumentsFilter(string type, string dateFrom = null, string dateTo = null)
+
+        public ArrayList GetDocumentsTypeFilter(string type, string inn = null, string dateFrom = null, string dateTo = null)
         {
             //TODO: Реализуй ограничение по выдаче документов
             DocumentRequest documentRequest = new DocumentRequest();
@@ -61,10 +62,27 @@ namespace Lib_Sbis
                 docfilter.ДатаС = dateFrom;
             if (dateTo != null)
                 docfilter.ДатаПо = dateTo;
+            if (inn != null)
+            {
+                Контрагент контрагент = new Контрагент();
+                Свюл свюл = new Свюл();
+                свюл.ИНН = inn;
+                контрагент.СвЮЛ = свюл;
+                docfilter.Контрагент = контрагент;
+            }
+                
             documentRequest.DocFilter = docfilter;
 
 
             ArrayList docslist = RequestAndSerialize(documentRequest);
+            if (docslist.Count == 0 && inn != null)
+            {
+                docfilter.Контрагент.СвЮЛ = null;
+                Свфл свфл = new Свфл();
+                свфл.ИНН = inn;
+                docfilter.Контрагент.СвФЛ = свфл;
+                docslist = RequestAndSerialize(documentRequest);
+            }
             return docslist;
         }
         ArrayList FillDocList(ArrayList docslist,Документ[] документ)
