@@ -26,6 +26,17 @@ namespace SBISLib.HTTP_request_classes
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
+                //TODO:Реализуй метод для получения и записи зип архива
+                if (httpWebRequest.Method == "GET")
+                {
+                    using (var s = httpWebRequest.GetResponse().GetResponseStream())
+                    {
+                        using (var w = File.OpenWrite(@"C:\MyFile.zip"))
+                        {
+                            s.CopyTo(w);
+                        }
+                    }
+                }
                 var answer = streamReader.ReadToEnd();
                 return answer;
             }
