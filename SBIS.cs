@@ -52,7 +52,6 @@ namespace Lib_Sbis
         }
         public ArrayList GetDocumentsTypeFilter(string type, string inn = null, string dateFrom = null, string dateTo = null)
         {
-            //TODO: Реализуй ограничение по выдаче документов
             DocumentRequest documentRequest = new DocumentRequest();
             
             DocFilter docfilter = new DocFilter(type,new Навигация("0"));
@@ -104,6 +103,7 @@ namespace Lib_Sbis
         }       
         ArrayList RequestAndSerialize(DocumentRequest documentRequest)
         {
+            //TODO: Реализуй ограничение по выдаче документов
             ArrayList docslist = new ArrayList();
             string docJson = documentRequest.GetDocument(sessionid);
             Rootobject rootobject = JsonConvert.DeserializeObject<Rootobject>(docJson);
@@ -156,7 +156,5 @@ namespace Lib_Sbis
             }
             return docfilter;
         }
-
-        
     }
 }

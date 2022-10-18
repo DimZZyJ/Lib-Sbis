@@ -22,9 +22,10 @@ namespace SBISLib.HTTP_request_classes
 
             }
             string link = "https://online.sbis.ru/service/?srv=1";
-            string Json = Request(jsonRequest, link, sessionid);
+            string Json = Request(link,jsonRequest,  sessionid);
             return Json;
 
         }
+
     }
 }
