@@ -96,6 +96,30 @@ namespace Lib_Sbis
             }
             return docslist;
         }
+        public void GetDocumentPdf(Документ документ)
+        {
+            string extension = "pdf";
+            string link = документ.СсылкаНаPDF;
+            if (link != "")
+            {
+                DocumentRequest document = new DocumentRequest();
+                document.GetDocumentFiles(sessionid, link, extension);
+            }
+        }
+        public void GetDocumentArchive(Документ документ)
+        {
+            string extension = "zip";
+            string link = документ.СсылкаНаАрхив;
+            if (link != "")
+            {
+                DocumentRequest document = new DocumentRequest();
+                document.GetDocumentFiles(sessionid,link,extension);
+            }
+        }
+        public Документ GetDocObjectFromList(int index,ArrayList documents)
+        {
+            return (Документ)documents[index];
+        }
         public SimpleDocFilter GetFilterObject()
         {
             SimpleDocFilter filter = new SimpleDocFilter();
@@ -156,5 +180,7 @@ namespace Lib_Sbis
             }
             return docfilter;
         }
+
+
     }
 }

@@ -19,6 +19,9 @@ namespace Lib_Sbis
         ArrayList GetDocuments();
         ArrayList GetDocumentsTypeFilter(string type, string inn,string dateFrom , string dateTo);
         ArrayList GetDocumentsByFilterObject(SimpleDocFilter simpleDocFilter);
+        void GetDocumentPdf(Документ документ);
+        void GetDocumentArchive(Документ документ);
+        Документ GetDocObjectFromList(int index, ArrayList documents);
         SimpleDocFilter GetFilterObject();
     }
 }

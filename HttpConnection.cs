@@ -27,7 +27,7 @@ namespace SBISLib.HTTP_request_classes
         {
             string jsonRequets = $"{{\r\n   \"jsonrpc\": \"2.0\",\r\n   \"method\": \"СБИС.Аутентифицировать\",\r\n   \"params\": {{\r\n      \"Параметр\": {{\r\n         \"Логин\": \"{Login}\",\r\n         \"Пароль\": \"{Password}\"\r\n      }}\r\n   }},\r\n   \"id\": 0\r\n}}";
             string link = "https://online.sbis.ru/auth/service/";
-            string Json = Request(link,jsonRequets);
+            string Json = RequestPost(link,jsonRequets);
             var jo = JObject.Parse(Json);
             sessionid = jo["result"].ToString();
         }
@@ -36,7 +36,7 @@ namespace SBISLib.HTTP_request_classes
         {
             string jsonRequest= "{\r\n  \"jsonrpc\": \"2.0\",\r\n  \"method\": \"СБИС.Выход\",\r\n  \"params\": {},\r\n  \"id\": 0\r\n}";
             string link = "https://online.sbis.ru/auth/service/";
-            Request(link,jsonRequest, sessionid);
+            RequestPost(link,jsonRequest, sessionid);
         }
     }
 }
