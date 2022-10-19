@@ -103,7 +103,7 @@ namespace Lib_Sbis
             if (link != "")
             {
                 DocumentRequest document = new DocumentRequest();
-                document.GetDocumentFiles(sessionid, link, extension);
+                document.GetDocumentFile(sessionid, link, extension,документ.Название);
             }
         }
         public void GetDocumentArchive(Документ документ)
@@ -113,10 +113,10 @@ namespace Lib_Sbis
             if (link != "")
             {
                 DocumentRequest document = new DocumentRequest();
-                document.GetDocumentFiles(sessionid,link,extension);
+                document.GetDocumentFile(sessionid,link,extension,документ.Название);
             }
         }
-        public Документ GetDocObjectFromList(int index,ArrayList documents)
+        public Документ GetDocObjectFromList(int index,ArrayList documents) //TODO: Реализовать загрузку нескольких файлов
         {
             return (Документ)documents[index];
         }
@@ -180,7 +180,5 @@ namespace Lib_Sbis
             }
             return docfilter;
         }
-
-
     }
 }

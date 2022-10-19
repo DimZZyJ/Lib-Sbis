@@ -31,12 +31,13 @@ namespace SBISLib.HTTP_request_classes
             return Json;
 
         }
-        //TODO: Организуй передачу ссылки на архив
-        public void GetDocumentFiles(string sessionid,string link,string extension)
+        public void GetDocumentFile(string sessionid,string link,string extension,string filename=null)
         {
             string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)+@"\"+extension;
+            if (filename==null)
+                filename = DateTime.Now.ToShortDateString();
             Directory.CreateDirectory(Dir);
-            string path=Dir+@"\tempFile."+extension;
+            string path=Dir+@"\"+filename+@"."+extension;
             RequestGet(link, path,sessionid);
         }
     }
