@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using static SBISLib.DocumentClasses.DocObject;
 
 namespace Lib_Sbis
@@ -96,8 +97,9 @@ namespace Lib_Sbis
             }
             return docslist;
         }
-        public void GetDocumentPdf(Документ документ)
+        public void GetDocumentPdf(Object obj)
         {
+            Документ документ = (Документ)obj;
             string extension = "pdf";
             string link = документ.СсылкаНаPDF;
             if (link != "")
@@ -106,8 +108,9 @@ namespace Lib_Sbis
                 document.GetDocumentFile(sessionid, link, extension,документ.Название);
             }
         }
-        public void GetDocumentArchive(Документ документ)
+        public void GetDocumentArchive(Object obj)
         {
+            Документ документ = (Документ)obj;
             string extension = "zip";
             string link = документ.СсылкаНаАрхив;
             if (link != "")
@@ -116,9 +119,31 @@ namespace Lib_Sbis
                 document.GetDocumentFile(sessionid,link,extension,документ.Название);
             }
         }
-        public Документ GetDocObjectFromList(int index,ArrayList documents) //TODO: Реализовать загрузку нескольких файлов
+        public void GetDocumentsArchives(ArrayList doclist)
         {
-            return (Документ)documents[index];
+            Документ[] документы = new Документ[doclist.Count];
+            документы = FillDocumentArray(документы,doclist);
+            string link;
+            string extension = "zip";
+            DocumentRequest document = new DocumentRequest();
+            for (int i = 0; i < документы.Length; i++)
+            {
+                link = документы[i].СсылкаНаАрхив;
+                document.GetDocumentFile(sessionid, link, extension, документы[i].Название);
+            }
+        }
+        public void GetDocumentsPdfs(ArrayList doclist)
+        {
+            Документ[] документы = new Документ[doclist.Count];
+            документы = FillDocumentArray(документы, doclist);
+            string link;
+            string extension = "pdf";
+            DocumentRequest document = new DocumentRequest();
+            for (int i = 0; i < документы.Length; i++)
+            {
+                link = документы[i].СсылкаНаPDF;
+                document.GetDocumentFile(sessionid, link, extension, документы[i].Название);
+            }
         }
         public SimpleDocFilter GetFilterObject()
         {
@@ -147,6 +172,15 @@ namespace Lib_Sbis
                 
             }
             return docslist;
+        }
+        Документ[] FillDocumentArray(Документ[] документ,ArrayList doclist)
+        {
+            for (int i = 0; i < doclist.Count; i++)
+            {
+                документ[i] = (Документ)doclist[i];
+            }
+
+            return документ;
         }
         ArrayList FillDocList(ArrayList docslist, Документ[] документ)
         {
