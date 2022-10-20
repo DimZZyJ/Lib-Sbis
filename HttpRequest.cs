@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace SBISLib.HTTP_request_classes
 {
@@ -25,21 +26,23 @@ namespace SBISLib.HTTP_request_classes
                 return answer;
             }
         }
-        public static void RequestGet(string link,string path, string sessionid)
+        public static async void RequestGet(string link,string path, string sessionid)
         {
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(link);
-            httpWebRequest.ContentType = "application/json-rpc;charset=utf-8";
-            httpWebRequest.Method = "GET";
-            if (sessionid != null)
-                httpWebRequest.Headers.Add("X-SBISSessionID:" + sessionid);
-            using (var s = httpWebRequest.GetResponse().GetResponseStream())
+            await Task.Run(() =>
             {
-                using (var w = File.OpenWrite(path))
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(link);
+                httpWebRequest.ContentType = "application/json-rpc;charset=utf-8";
+                httpWebRequest.Method = "GET";
+                if (sessionid != null)
+                    httpWebRequest.Headers.Add("X-SBISSessionID:" + sessionid);
+                using (var s = httpWebRequest.GetResponse().GetResponseStream())
                 {
-                    s.CopyTo(w);
+                    using (var w = File.OpenWrite(path))
+                    {
+                        s.CopyTo(w);
+                    }
                 }
-            }
+            });
         }
     }
 }
