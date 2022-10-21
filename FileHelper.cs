@@ -17,8 +17,7 @@ namespace Lib_Sbis
             DirectoryInfo directoryInfo = new DirectoryInfo(Dir);
             FileInfo[] files = directoryInfo.GetFiles("*.zip");
             string tmp = Dir + @"\Счет-фактура полученный № 7775 от 16.09.2022 на сумму 67100.00.zip";
-            //GetXMLFromZip(tmp);
-            readZipFile(tmp);
+            GetXMLFromZip(tmp);
             return files;
         }
         public void GetXMLFromZip(string path)
