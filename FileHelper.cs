@@ -1,31 +1,52 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Mail;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace Lib_Sbis
 {
     public class FileHelper
     {
-        public FileInfo[] GetFilesInfoList()
+        FileInfo[] GetFilesInfoList()
         {
             string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\zip";
             DirectoryInfo directoryInfo = new DirectoryInfo(Dir);
             FileInfo[] files = directoryInfo.GetFiles("*.zip");
-            string tmp = Dir + @"\Счет-фактура полученный № 7775 от 16.09.2022 на сумму 67100.00.zip";
-            GetXMLFromZip(tmp);
             return files;
         }
-        public void GetXMLFromZip(string path)
+        void GetXMLFromZip(string pathin,string pathout)
         {
-            using (var zip = ZipFile.Open(path,ZipArchiveMode.Read))
+            Directory.CreateDirectory(pathout);
+            using (var zip = ZipFile.Open(pathin,ZipArchiveMode.Read))
             {
-                var smt = zip.Entries;
+                int i = 0; ;
+                foreach (var entry in zip.Entries)
+                {
+                    if (entry.Name.EndsWith(".xml"))
+                    {
+                        entry.ExtractToFile(pathout+@"\"+i+".xml");//уменьшить путь
+                    }
+                    i++;
+                }
+                
             }
+        }
+        public void ExtractXMLFromArchives()
+        {
+            string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            FileInfo[] zipsInfo = GetFilesInfoList();
+            for (int i = 0; i < zipsInfo.Length; i++)
+            {
+                GetXMLFromZip(zipsInfo[i].FullName, Dir +@"\xmls\"+zipsInfo[i].Name);
+            }
+
         }
         //TODO: организуй парсинг xml из архива
         //TODO: Парсин из массива 
