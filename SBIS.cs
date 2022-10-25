@@ -1,16 +1,13 @@
 ﻿using Lib_Sbis.Document;
 using Lib_Sbis.SimpleObjects;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SBISLib.DocumentClasses;
 using SBISLib.HTTP_request_classes;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using static SBISLib.DocumentClasses.DocObject;
 
 namespace Lib_Sbis

@@ -54,15 +54,6 @@ namespace Lib_Sbis
                 
             }
         }
-        //public Object DeserializeXML(string path,Object obj)
-        //{
-        //    XmlSerializer xmlSerializer = new XmlSerializer(obj.GetType());
-        //    using (FileStream fs = new FileStream(path, FileMode.Open))
-        //    {
-        //        var doc = xmlSerializer.Deserialize(fs);
-        //        return doc;
-        //    }  
-        //}
         public Object DeserializeXML(string path, Type type)//TODO реализовать опознание нужного xml
         {
             XmlSerializer xmlSerializer = new XmlSerializer(type);

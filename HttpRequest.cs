@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace SBISLib.HTTP_request_classes
 {
