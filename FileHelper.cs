@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Lib_Sbis.Document;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Net.Mail;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
+using System.Xml.Serialization;
 
 namespace Lib_Sbis
 {
@@ -31,7 +25,7 @@ namespace Lib_Sbis
                 {
                     if (entry.Name.EndsWith(".xml"))
                     {
-                        entry.ExtractToFile(pathout+@"\"+i+".xml");//уменьшить путь
+                        entry.ExtractToFile(pathout+@"\"+i+".xml");
                     }
                     i++;
                 }
@@ -44,12 +38,20 @@ namespace Lib_Sbis
             FileInfo[] zipsInfo = GetFilesInfoList();
             for (int i = 0; i < zipsInfo.Length; i++)
             {
-                GetXMLFromZip(zipsInfo[i].FullName, Dir +@"\xmls\"+zipsInfo[i].Name);
+                GetXMLFromZip(zipsInfo[i].FullName, Dir +@"\xml\"+zipsInfo[i].Name);
             }
-
+            
         }
-        //TODO: организуй парсинг xml из архива
-        //TODO: Парсин из массива 
-
+        public СчетФактура.Файл DeserializeXML()
+        {
+            СчетФактура.Файл счетФактура;
+            string path = @"C:\Users\it-3\source\repos\ConsoleAppTEST\bin\Debug\xmls\Счет-фактура полученный № 8760 от 13.10.2022 на сумму 227311.20.zip\0.xml";
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(СчетФактура.Файл));
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                счетФактура = (СчетФактура.Файл)xmlSerializer.Deserialize(fs);
+            }
+            return счетФактура;
+        }
     }
 }

@@ -23,6 +23,7 @@ namespace Lib_Sbis
         void GetDocumentArchive(Object obj);
         void GetDocumentsArchives(ArrayList doclist);
         void GetDocumentsPdfs(ArrayList doclist);
+        void DeleteDocuments(string type);
         SimpleDocFilter GetFilterObject();
     }
 }

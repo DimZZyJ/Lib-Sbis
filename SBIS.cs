@@ -6,6 +6,8 @@ using SBISLib.HTTP_request_classes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static SBISLib.DocumentClasses.DocObject;
@@ -144,6 +146,11 @@ namespace Lib_Sbis
                 link = документы[i].СсылкаНаPDF;
                 document.GetDocumentFile(sessionid, link, extension, документы[i].Название);
             }
+        }
+        public void DeleteDocuments(string type)
+        {
+            string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\"+type;
+            Directory.Delete(Dir, true);
         }
         public SimpleDocFilter GetFilterObject()
         {
