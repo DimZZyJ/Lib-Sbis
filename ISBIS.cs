@@ -16,7 +16,7 @@ namespace Lib_Sbis
         void GetDocumentPdf(Object obj);
         void GetDocumentArchive(Object obj);
         void GetDocumentsArchives(ArrayList doclist);
-        void ExstarctXMLsFromArchives();
+        void ExtractXMLsFromArchives();
         ArrayList DeserializeXMLs();
         void GetDocumentsPdfs(ArrayList doclist);
         void DeleteDocuments(string type);

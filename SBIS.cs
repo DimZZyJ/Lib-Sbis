@@ -132,7 +132,7 @@ namespace Lib_Sbis
                 document.GetDocumentFile(sessionid, link, extension, документы[i].Название);
             }
         }
-        public void ExstarctXMLsFromArchives()
+        public void ExtractXMLsFromArchives()
         {
             FileHelper fileHelper = new FileHelper();
             fileHelper.ExtractXMLFromArchives();
