@@ -26,23 +26,20 @@ namespace SBISLib.HTTP_request_classes
                 return answer;
             }
         }
-        public static async void RequestGet(string link,string path, string sessionid)
+        public static void RequestGet(string link,string path, string sessionid)
         {
-            await Task.Run(() =>
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(link);
+            httpWebRequest.ContentType = "application/json-rpc;charset=utf-8";
+            httpWebRequest.Method = "GET";
+            if (sessionid != null)
+                httpWebRequest.Headers.Add("X-SBISSessionID:" + sessionid);
+            using (var s = httpWebRequest.GetResponse().GetResponseStream())
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(link);
-                httpWebRequest.ContentType = "application/json-rpc;charset=utf-8";
-                httpWebRequest.Method = "GET";
-                if (sessionid != null)
-                    httpWebRequest.Headers.Add("X-SBISSessionID:" + sessionid);
-                using (var s = httpWebRequest.GetResponse().GetResponseStream())
+                using (var w = File.OpenWrite(path))
                 {
-                    using (var w = File.OpenWrite(path))
-                    {
-                        s.CopyTo(w);
-                    }
+                    s.CopyTo(w);
                 }
-            });
+            }
         }
     }
 }

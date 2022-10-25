@@ -1,4 +1,5 @@
-﻿using Lib_Sbis.SimpleObjects;
+﻿using Lib_Sbis.Document;
+using Lib_Sbis.SimpleObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SBISLib.DocumentClasses;
@@ -133,6 +134,23 @@ namespace Lib_Sbis
                 link = документы[i].СсылкаНаАрхив;
                 document.GetDocumentFile(sessionid, link, extension, документы[i].Название);
             }
+        }
+        public void ExstarctXMLsFromArchives()
+        {
+            FileHelper fileHelper = new FileHelper();
+            fileHelper.ExtractXMLFromArchives();
+        }
+        public ArrayList DeserializeXMLs()
+        {
+            ArrayList DeserializedObjects = new ArrayList();
+            FileHelper fileHelper = new FileHelper();
+            var DirList = fileHelper.GetDirectoryInfoArray("xml");
+            for (int i = 0; i < DirList.Length; i++)
+            {
+                var DeserializedObject = fileHelper.DeserializeXML(DirList[i].FullName + @"\0.xml", typeof(СчетФактура.Файл));
+                DeserializedObjects.Add(DeserializedObject);
+            }
+            return DeserializedObjects;
         }
         public void GetDocumentsPdfs(ArrayList doclist)
         {

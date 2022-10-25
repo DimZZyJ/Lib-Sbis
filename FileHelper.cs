@@ -1,4 +1,5 @@
 ﻿using Lib_Sbis.Document;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
@@ -8,12 +9,33 @@ namespace Lib_Sbis
 {
     public class FileHelper
     {
-        FileInfo[] GetFilesInfoList()
+        public void ExtractXMLFromArchives()
         {
-            string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\zip";
+            string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            FileInfo[] zipsInfo = GetFilesInfoArray();
+            for (int i = 0; i < zipsInfo.Length; i++)
+            {
+                GetXMLFromZip(zipsInfo[i].FullName, Dir +@"\xml\"+zipsInfo[i].Name);
+            }
+            
+        }
+        public FileInfo[] GetFilesInfoArray(string extension=null)
+        {
+            if (extension == null)
+                extension = "zip";
+            string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\"+extension;
             DirectoryInfo directoryInfo = new DirectoryInfo(Dir);
-            FileInfo[] files = directoryInfo.GetFiles("*.zip");
+            FileInfo[] files = directoryInfo.GetFiles("*."+extension);
             return files;
+        }
+        public DirectoryInfo[] GetDirectoryInfoArray(string extension=null)
+        {
+            if (extension == null)
+                extension = "zip";
+            string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)+@"\"+extension;
+            DirectoryInfo directoryInfo = new DirectoryInfo(Dir);
+            DirectoryInfo[] directories = directoryInfo.GetDirectories();
+            return directories;
         }
         void GetXMLFromZip(string pathin,string pathout)
         {
@@ -32,26 +54,23 @@ namespace Lib_Sbis
                 
             }
         }
-        public void ExtractXMLFromArchives()
+        //public Object DeserializeXML(string path,Object obj)
+        //{
+        //    XmlSerializer xmlSerializer = new XmlSerializer(obj.GetType());
+        //    using (FileStream fs = new FileStream(path, FileMode.Open))
+        //    {
+        //        var doc = xmlSerializer.Deserialize(fs);
+        //        return doc;
+        //    }  
+        //}
+        public Object DeserializeXML(string path, Type type)//TODO реализовать опознание нужного xml
         {
-            string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            FileInfo[] zipsInfo = GetFilesInfoList();
-            for (int i = 0; i < zipsInfo.Length; i++)
-            {
-                GetXMLFromZip(zipsInfo[i].FullName, Dir +@"\xml\"+zipsInfo[i].Name);
-            }
-            
-        }
-        public СчетФактура.Файл DeserializeXML()
-        {
-            СчетФактура.Файл счетФактура;
-            string path = @"C:\Users\it-3\source\repos\ConsoleAppTEST\bin\Debug\xmls\Счет-фактура полученный № 8760 от 13.10.2022 на сумму 227311.20.zip\0.xml";
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(СчетФактура.Файл));
+            XmlSerializer xmlSerializer = new XmlSerializer(type);
             using (FileStream fs = new FileStream(path, FileMode.Open))
             {
-                счетФактура = (СчетФактура.Файл)xmlSerializer.Deserialize(fs);
+                var doc = xmlSerializer.Deserialize(fs);
+                return doc;
             }
-            return счетФактура;
         }
     }
 }
