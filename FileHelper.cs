@@ -45,16 +45,16 @@ namespace Lib_Sbis
                 int i = 0; ;
                 foreach (var entry in zip.Entries)
                 {
-                    if (entry.Name.EndsWith(".xml"))
+                    if (entry.Name.EndsWith(".xml") && entry.Name.StartsWith("ON_NSCHFDOPPR"))
                     {
-                        entry.ExtractToFile(pathout+@"\"+i+".xml");
+                        entry.ExtractToFile(pathout+@"\doc.xml");
                     }
                     i++;
                 }
                 
             }
         }
-        public Object DeserializeXML(string path, Type type)//TODO реализовать опознание нужного xml
+        public Object DeserializeXML(string path, Type type)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(type);
             using (FileStream fs = new FileStream(path, FileMode.Open))
