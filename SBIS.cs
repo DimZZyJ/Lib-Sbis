@@ -236,5 +236,14 @@ namespace Lib_Sbis
             }
             return docfilter;
         }
+
+        public string FieldToString(object aParent, string aFieldName)
+        {
+            PropertyInfo prop = aParent.GetType().GetProperty(aFieldName);
+            if (prop != null)
+                return prop.GetValue(aParent).ToString();
+            else
+                return "empty sring";
+        }
     }
 }
