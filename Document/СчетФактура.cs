@@ -2,7 +2,6 @@
 {
     public class СчетФактура
     {
-
         // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
         /// <remarks/>
         [System.SerializableAttribute()]
@@ -1731,12 +1730,13 @@
         public partial class ФайлДокументТаблСчФакт
         {
 
-            private ФайлДокументТаблСчФактСведТов сведТовField;
+            private ФайлДокументТаблСчФактСведТов[] сведТовField;
 
             private ФайлДокументТаблСчФактВсегоОпл всегоОплField;
 
             /// <remarks/>
-            public ФайлДокументТаблСчФактСведТов СведТов
+            [System.Xml.Serialization.XmlElementAttribute("СведТов")]
+            public ФайлДокументТаблСчФактСведТов[] СведТов
             {
                 get
                 {
@@ -1773,9 +1773,11 @@
 
             private ФайлДокументТаблСчФактСведТовСумНал сумНалField;
 
+            private ФайлДокументТаблСчФактСведТовСвТД свТДField;
+
             private ФайлДокументТаблСчФактСведТовДопСведТов допСведТовField;
 
-            private ФайлДокументТаблСчФактСведТовИнфПолФХЖ2 инфПолФХЖ2Field;
+            private ФайлДокументТаблСчФактСведТовИнфПолФХЖ2[] инфПолФХЖ2Field;
 
             private decimal колТовField;
 
@@ -1820,6 +1822,19 @@
             }
 
             /// <remarks/>
+            public ФайлДокументТаблСчФактСведТовСвТД СвТД
+            {
+                get
+                {
+                    return this.свТДField;
+                }
+                set
+                {
+                    this.свТДField = value;
+                }
+            }
+
+            /// <remarks/>
             public ФайлДокументТаблСчФактСведТовДопСведТов ДопСведТов
             {
                 get
@@ -1833,7 +1848,8 @@
             }
 
             /// <remarks/>
-            public ФайлДокументТаблСчФактСведТовИнфПолФХЖ2 ИнфПолФХЖ2
+            [System.Xml.Serialization.XmlElementAttribute("ИнфПолФХЖ2")]
+            public ФайлДокументТаблСчФактСведТовИнфПолФХЖ2[] ИнфПолФХЖ2
             {
                 get
                 {
@@ -2008,14 +2024,71 @@
         [System.SerializableAttribute()]
         [System.ComponentModel.DesignerCategoryAttribute("code")]
         [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+        public partial class ФайлДокументТаблСчФактСведТовСвТД
+        {
+
+            private ushort кодПроисхField;
+
+            private string номерТДField;
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public ushort КодПроисх
+            {
+                get
+                {
+                    return this.кодПроисхField;
+                }
+                set
+                {
+                    this.кодПроисхField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public string НомерТД
+            {
+                get
+                {
+                    return this.номерТДField;
+                }
+                set
+                {
+                    this.номерТДField = value;
+                }
+            }
+        }
+
+        /// <remarks/>
+        [System.SerializableAttribute()]
+        [System.ComponentModel.DesignerCategoryAttribute("code")]
+        [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
         public partial class ФайлДокументТаблСчФактСведТовДопСведТов
         {
+
+            private ФайлДокументТаблСчФактСведТовДопСведТовНомСредИдентТов номСредИдентТовField;
 
             private ushort кодТовField;
 
             private string наимЕдИзмField;
 
             private byte прТовРабField;
+
+            private string крНаимСтрПрField;
+
+            /// <remarks/>
+            public ФайлДокументТаблСчФактСведТовДопСведТовНомСредИдентТов НомСредИдентТов
+            {
+                get
+                {
+                    return this.номСредИдентТовField;
+                }
+                set
+                {
+                    this.номСредИдентТовField = value;
+                }
+            }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -2058,6 +2131,43 @@
                     this.прТовРабField = value;
                 }
             }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public string КрНаимСтрПр
+            {
+                get
+                {
+                    return this.крНаимСтрПрField;
+                }
+                set
+                {
+                    this.крНаимСтрПрField = value;
+                }
+            }
+        }
+
+        /// <remarks/>
+        [System.SerializableAttribute()]
+        [System.ComponentModel.DesignerCategoryAttribute("code")]
+        [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+        public partial class ФайлДокументТаблСчФактСведТовДопСведТовНомСредИдентТов
+        {
+
+            private ulong номУпакField;
+
+            /// <remarks/>
+            public ulong НомУпак
+            {
+                get
+                {
+                    return this.номУпакField;
+                }
+                set
+                {
+                    this.номУпакField = value;
+                }
+            }
         }
 
         /// <remarks/>
@@ -2067,13 +2177,13 @@
         public partial class ФайлДокументТаблСчФактСведТовИнфПолФХЖ2
         {
 
-            private ushort значенField;
+            private string значенField;
 
             private string идентифField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public ushort Значен
+            public string Значен
             {
                 get
                 {
@@ -2461,5 +2571,6 @@
                 }
             }
         }
+
     }
 }
