@@ -6,6 +6,7 @@ using SBISLib.HTTP_request_classes;
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using static SBISLib.DocumentClasses.DocObject;
@@ -244,6 +245,19 @@ namespace Lib_Sbis
                 return prop.GetValue(aParent).ToString();
             else
                 return "empty sring";
+        }
+
+        public ArrayList ArrayToArrayList(object aParent,string aFieldName)
+        {
+            PropertyInfo prop = aParent.GetType().GetProperty(aFieldName);
+            object[] array = (object[])prop.GetValue(aParent);
+            ArrayList arrayList = new ArrayList();
+            
+            for (int i = 0; i < array.Length; i++)
+            {
+                arrayList.Add(array[i]);
+            }
+            return arrayList;
         }
     }
 }

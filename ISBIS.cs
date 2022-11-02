@@ -18,6 +18,7 @@ namespace Lib_Sbis
         void GetDocumentsArchives(ArrayList doclist);
         void ExtractXMLsFromArchives();
         string FieldToString(object aParent, string aFieldName);
+        ArrayList ArrayToArrayList(object aParent, string aFieldName);
         ArrayList DeserializeXMLs();
         void GetDocumentsPdfs(ArrayList doclist);
         void DeleteDocuments(string type);

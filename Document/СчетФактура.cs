@@ -1,4 +1,6 @@
-﻿namespace Lib_Sbis.Document
+﻿using System.Collections;
+
+namespace Lib_Sbis.Document
 {
     public class СчетФактура
     {
