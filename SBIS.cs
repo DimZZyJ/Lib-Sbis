@@ -259,5 +259,17 @@ namespace Lib_Sbis
             }
             return arrayList;
         }
+
+        public ArrayList CreateArrayList()
+        {
+            ArrayList arrayList = new ArrayList();
+            return arrayList;
+        }
+
+        public ArrayList AddToArrayList(ArrayList arrayList, object obj)
+        {
+            arrayList.Add(obj);
+            return arrayList;   
+        }
     }
 }
