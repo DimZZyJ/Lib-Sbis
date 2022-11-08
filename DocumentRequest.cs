@@ -34,6 +34,7 @@ namespace SBISLib.HTTP_request_classes
             if (filename==null)
                 filename = DateTime.Now.ToShortDateString();
             Directory.CreateDirectory(Dir);
+            filename = filename.Replace('/', '_');
             string path=Dir+@"\"+filename+@"."+extension;
             RequestGet(link, path,sessionid);
         }

@@ -47,7 +47,7 @@ namespace Lib_Sbis
                 {
                     if (entry.Name.EndsWith(".xml") && entry.Name.StartsWith("ON_NSCHFDOPPR"))
                     {
-                        entry.ExtractToFile(pathout+@"\doc.xml");
+                        entry.ExtractToFile(pathout+@"\doc"+i+".xml");
                     }
                     i++;
                 }

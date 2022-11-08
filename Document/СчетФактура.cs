@@ -408,7 +408,7 @@ namespace Lib_Sbis.Document
 
             private ushort кодОКВField;
 
-            private ushort номерСчФField;
+            private string номерСчФField;
 
             /// <remarks/>
             public ФайлДокументСвСчФактИспрСчФ ИспрСчФ
@@ -532,7 +532,7 @@ namespace Lib_Sbis.Document
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public ushort НомерСчФ
+            public string НомерСчФ
             {
                 get
                 {
@@ -778,7 +778,7 @@ namespace Lib_Sbis.Document
         public partial class ФайлДокументСвСчФактСвПродАдресАдрРФ
         {
 
-            private byte домField;
+            private string домField;
 
             private uint индексField;
 
@@ -792,7 +792,7 @@ namespace Lib_Sbis.Document
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte Дом
+            public string Дом
             {
                 get
                 {
@@ -1469,7 +1469,7 @@ namespace Lib_Sbis.Document
         public partial class ФайлДокументСвСчФактСвПокупАдресАдрРФ
         {
 
-            private byte домField;
+            private string домField;
 
             private uint индексField;
 
@@ -1479,7 +1479,7 @@ namespace Lib_Sbis.Document
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte Дом
+            public string Дом
             {
                 get
                 {
@@ -1640,7 +1640,7 @@ namespace Lib_Sbis.Document
 
             private string наимДокОтгрField;
 
-            private ushort номДокОтгрField;
+            private string номДокОтгрField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1672,7 +1672,7 @@ namespace Lib_Sbis.Document
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public ushort НомДокОтгр
+            public string НомДокОтгр
             {
                 get
                 {
@@ -1789,7 +1789,7 @@ namespace Lib_Sbis.Document
 
             private byte номСтрField;
 
-            private byte оКЕИ_ТовField;
+            private int оКЕИ_ТовField;
 
             private decimal стТовБезНДСField;
 
@@ -1921,7 +1921,7 @@ namespace Lib_Sbis.Document
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte ОКЕИ_Тов
+            public int ОКЕИ_Тов
             {
                 get
                 {
@@ -2071,7 +2071,7 @@ namespace Lib_Sbis.Document
 
             private ФайлДокументТаблСчФактСведТовДопСведТовНомСредИдентТов номСредИдентТовField;
 
-            private ushort кодТовField;
+            private string кодТовField;
 
             private string наимЕдИзмField;
 
@@ -2094,7 +2094,7 @@ namespace Lib_Sbis.Document
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public ushort КодТов
+            public string КодТов
             {
                 get
                 {
