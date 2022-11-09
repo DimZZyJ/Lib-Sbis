@@ -2156,10 +2156,10 @@ namespace Lib_Sbis.Document
         public partial class ФайлДокументТаблСчФактСведТовДопСведТовНомСредИдентТов
         {
 
-            private ulong номУпакField;
+            private string номУпакField;
 
             /// <remarks/>
-            public ulong НомУпак
+            public string НомУпак
             {
                 get
                 {
