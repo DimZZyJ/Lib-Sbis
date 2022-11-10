@@ -9,14 +9,26 @@ namespace Lib_Sbis
 {
     public class FileHelper
     {
-        public void ExtractXMLFromArchives()
+        public void ExtractXMLFromArchives()//exeption writer suda
         {
             string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             FileInfo[] zipsInfo = GetFilesInfoArray();
             for (int i = 0; i < zipsInfo.Length; i++)
             {
-                GetXMLFromZip(zipsInfo[i].FullName, Dir +@"\xml\"+zipsInfo[i].Name);
+                try
+                {
+                    GetXMLFromZip(zipsInfo[i].FullName, Dir + @"\xml\" + zipsInfo[i].Name);
+                }
+                catch (Exception ex)
+                {
+                    StreamWriter sw = new StreamWriter(Dir + @"\errorlog.txt", true);
+                    sw.WriteLine(ex.Message);
+                    sw.Close();
+                }
             }
+            
+            
+            
             
         }
         public FileInfo[] GetFilesInfoArray(string extension=null)

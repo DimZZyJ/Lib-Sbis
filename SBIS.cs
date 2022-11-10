@@ -129,10 +129,27 @@ namespace Lib_Sbis
             DocumentRequest document = new DocumentRequest();
             for (int i = 0; i < документы.Length; i++)
             {
-                link = документы[i].СсылкаНаАрхив;
-                document.GetDocumentFile(sessionid, link, extension, документы[i].Название);
+                try
+                {
+                    link = документы[i].СсылкаНаАрхив;
+                    document.GetDocumentFile(sessionid, link, extension, документы[i].Название);
+                }
+                catch (Exception ex)
+                {
+                    ExeptionWriter(ex);
+                }
+
             }
         }
+
+        private static void ExeptionWriter(Exception ex)
+        {
+            string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            StreamWriter sw = new StreamWriter(Dir + @"\errorlog.txt", true);
+            sw.WriteLine(ex.Message);
+            sw.Close();
+        }
+
         public void ExtractXMLsFromArchives()
         {
             FileHelper fileHelper = new FileHelper();
@@ -145,11 +162,18 @@ namespace Lib_Sbis
             var DirList = fileHelper.GetDirectoryInfoArray("xml");
             for (int i = 0; i < DirList.Length; i++)
             {
-                FileInfo[] files = DirList[i].GetFiles("doc*");
-                for (int j = 0; j < files.Length; j++)
+                try 
                 {
-                    var DeserializedObject = fileHelper.DeserializeXML(DirList[i].FullName + @"\" + files[j].Name, typeof(СчетФактура.Файл));
-                    DeserializedObjects.Add(DeserializedObject);
+                    FileInfo[] files = DirList[i].GetFiles("doc*");
+                    for (int j = 0; j < files.Length; j++)
+                    {
+                        var DeserializedObject = fileHelper.DeserializeXML(DirList[i].FullName + @"\" + files[j].Name, typeof(СчетФактура.Файл));
+                        DeserializedObjects.Add(DeserializedObject);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ExeptionWriter(ex);
                 }
             }
             return DeserializedObjects;
