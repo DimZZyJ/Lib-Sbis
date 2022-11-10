@@ -162,18 +162,18 @@ namespace Lib_Sbis
             var DirList = fileHelper.GetDirectoryInfoArray("xml");
             for (int i = 0; i < DirList.Length; i++)
             {
-                try 
+                FileInfo[] files = DirList[i].GetFiles("doc*");
+                for (int j = 0; j < files.Length; j++)
                 {
-                    FileInfo[] files = DirList[i].GetFiles("doc*");
-                    for (int j = 0; j < files.Length; j++)
+                    try
                     {
                         var DeserializedObject = fileHelper.DeserializeXML(DirList[i].FullName + @"\" + files[j].Name, typeof(СчетФактура.Файл));
                         DeserializedObjects.Add(DeserializedObject);
                     }
-                }
-                catch (Exception ex)
-                {
-                    ExeptionWriter(ex);
+                    catch (Exception ex)
+                    {
+                        ExeptionWriter(ex);
+                    }
                 }
             }
             return DeserializedObjects;
