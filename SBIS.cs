@@ -145,8 +145,9 @@ namespace Lib_Sbis
         private static void ExeptionWriter(Exception ex)
         {
             string Dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string time = DateTime.Now.ToString();
             StreamWriter sw = new StreamWriter(Dir + @"\errorlog.txt", true);
-            sw.WriteLine(ex.Message);
+            sw.WriteLine(time+" "+ex.Message);
             sw.Close();
         }
 

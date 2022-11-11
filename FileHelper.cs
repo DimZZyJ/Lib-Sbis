@@ -22,7 +22,8 @@ namespace Lib_Sbis
                 catch (Exception ex)
                 {
                     StreamWriter sw = new StreamWriter(Dir + @"\errorlog.txt", true);
-                    sw.WriteLine(ex.Message);
+                    string time = DateTime.Now.ToString();
+                    sw.WriteLine(time+" "+ex.Message);
                     sw.Close();
                 }
             }
